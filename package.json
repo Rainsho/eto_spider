@@ -1,0 +1,19 @@
+{
+  "name": "eto_spider.js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rainsho",
+  "license": "ISC",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "reflect-metadata": "^0.1.12",
+    "superagent": "^3.8.3",
+    "ts-node": "^6.1.0",
+    "typeorm": "^0.2.7",
+    "typescript": "^2.9.1"
+  }
+}
