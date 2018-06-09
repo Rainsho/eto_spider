@@ -17,7 +17,7 @@ api.get('/eto/date', async (ctx) => {
     connection
       .getRepository(Eto)
       .createQueryBuilder()
-      .select('DISTINCT CREATETIME')
+      .select('DISTINCT CREATETIME AS TIME')
       .getRawMany()
   );
   ctx.body = date;
