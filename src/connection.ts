@@ -13,7 +13,8 @@ export default (model) => (middleware: MiddleWare) =>
     entities: [model],
   }).then(async (connection) => {
     try {
-      await middleware(connection);
+      const next = await middleware(connection);
+      return next;
     } catch (e) {
       console.log(e);
       connection.close();

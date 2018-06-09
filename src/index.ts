@@ -1,8 +1,13 @@
 import connection from './connection';
 import Eto from './model';
 
-connection(Eto)(async (connection) => {
-  const data = await connection.manager.find(Eto);
+const Koa = require('koa');
+const app = new Koa();
 
-  console.log(data);
+app.use(async (ctx) => {
+  const data = await connection(Eto)((con) => con.manager.find(Eto));
+
+  ctx.body = data;
 });
+
+app.listen(8888);
