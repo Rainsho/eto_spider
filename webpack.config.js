@@ -1,16 +1,18 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-const extractCSS = new ExtractTextPlugin('bundle_[hash:6].css');
+const isPro = process.env.NODE_ENV === 'production';
+const filename = isPro ? 'bundle_[hash:6]' : 'bundle';
 
 module.exports = {
-  mode: process.env.NODE_ENV || 'production',
   entry: path.resolve(__dirname, 'front-end/index.jsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle_[hash:6].js',
+    filename: `${filename}.js`,
   },
+  mode: isPro ? 'production' : 'development',
+  devtool: isPro ? 'none' : 'eval-source-map',
   module: {
     rules: [
       {
@@ -20,7 +22,7 @@ module.exports = {
       },
       {
         test: /\.(css|less)$/,
-        use: extractCSS.extract(['css-loader', 'less-loader']),
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
       },
     ],
   },
@@ -32,5 +34,6 @@ module.exports = {
       filename: path.resolve(__dirname, 'dist', 'index.html'),
       template: path.resolve(__dirname, 'front-end', 'index.html'),
     }),
+    new MiniCssExtractPlugin({ filename: `${filename}.css` }),
   ],
 };
