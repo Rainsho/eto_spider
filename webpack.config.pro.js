@@ -4,13 +4,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: path.resolve(__dirname, 'front-end/index.jsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: 'bundle_[hash:6].js',
   },
-  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -20,19 +19,28 @@ module.exports = {
       },
       {
         test: /\.(css|less)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'less-loader'],
+        loader: 'ignore-loader',
       },
     ],
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  externals: {
+    antd: 'antd',
+    moment: 'moment',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
   plugins: [
     new HtmlWebpackPlugin({
       filename: path.resolve(__dirname, 'dist', 'index.html'),
-      template: path.resolve(__dirname, 'front-end', 'index.html'),
+      template: path.resolve(__dirname, 'front-end', 'index_cdn.html'),
     }),
-    new MiniCssExtractPlugin({ filename: 'bundle.css' }),
+    new MiniCssExtractPlugin({ filename: 'bundle_[hash:6].css' }),
     // new BundleAnalyzerPlugin(),
   ],
+  optimization: {
+    minimize: true,
+  },
 };

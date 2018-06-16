@@ -6,8 +6,8 @@
   "scripts": {
     "start": "ts-node index.ts",
     "fetch": "ts-node src/persist.ts",
-    "build": "export NODE_ENV=development && webpack",
-    "build:pro": "export NODE_ENV=production && webpack"
+    "build": "webpack",
+    "build:pro": "webpack --config webpack.config.pro.js"
   },
   "author": "Rainsho",
   "license": "ISC",
