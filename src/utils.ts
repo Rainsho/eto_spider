@@ -2,7 +2,7 @@ import connection from './connection';
 import Eto from './model';
 
 export async function getDate(ctx) {
-  const date = await connection(Eto)((connection) =>
+  const date = await connection()(connection =>
     connection
       .getRepository(Eto)
       .createQueryBuilder()
@@ -15,7 +15,7 @@ export async function getDate(ctx) {
 export async function getEtos(ctx) {
   const { time } = ctx.params;
   const date = new Date(parseInt(time));
-  const etos = await connection(Eto)((connection) =>
+  const etos = await connection()(connection =>
     connection.getRepository(Eto).find({ createtime: date })
   );
   ctx.body = etos;
