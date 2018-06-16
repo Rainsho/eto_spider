@@ -6,7 +6,8 @@
   "scripts": {
     "start": "ts-node index.ts",
     "fetch": "ts-node src/persist.ts",
-    "build": "export NODE_ENV=development && webpack -w"
+    "build": "export NODE_ENV=development && webpack",
+    "build:pro": "export NODE_ENV=production && webpack"
   },
   "author": "Rainsho",
   "license": "ISC",
@@ -41,11 +42,13 @@
     "css-loader": "^0.28.11",
     "eslint": "^4.19.1",
     "html-webpack-plugin": "^3.2.0",
+    "ignore-loader": "^0.1.2",
     "less": "^2.7.3",
     "less-loader": "^4.1.0",
     "mini-css-extract-plugin": "^0.4.0",
     "tslint": "^5.10.0",
     "webpack": "^4.12.0",
+    "webpack-bundle-analyzer": "^2.13.1",
     "webpack-cli": "^3.0.8"
   }
 }
