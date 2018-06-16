@@ -8,6 +8,15 @@ interface MiddleWare {
 }
 
 let connection;
+let timer;
+
+const closeCon = () => {
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    connection.close();
+    connection = null;
+  }, 1000 * 60 * 10);
+};
 
 const conFactory = () =>
   createConnection({
@@ -20,6 +29,8 @@ const conFactory = () =>
   });
 
 export default () => (middleware: MiddleWare) => {
+  clearTimeout(timer);
+
   if (connection) {
     return Promise.resolve(connection).then(async con => {
       try {
@@ -30,8 +41,9 @@ export default () => (middleware: MiddleWare) => {
         con.close();
         connection = null;
       } finally {
-        con.close();
-        connection = null;
+        // con.close();
+        // connection = null;
+        closeCon();
       }
     });
   }
@@ -45,8 +57,9 @@ export default () => (middleware: MiddleWare) => {
       con.close();
       connection = null;
     } finally {
-      con.close();
-      connection = null;
+      // con.close();
+      // connection = null;
+      closeCon();
     }
   });
 };
