@@ -65,6 +65,7 @@ export default class App extends React.Component {
       {
         title: 'id',
         dataIndex: 'id',
+        render: (val, record, index) => index + 1,
       },
       {
         title: 'address',

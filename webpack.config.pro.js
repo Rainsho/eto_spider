@@ -1,7 +1,12 @@
 const path = require('path');
+const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
+// 清理 dist
+const files = fs.readdirSync(path.resolve(__dirname, 'dist'));
+files.forEach(file => fs.unlinkSync(path.resolve(__dirname, 'dist', file)));
 
 module.exports = {
   mode: 'production',
